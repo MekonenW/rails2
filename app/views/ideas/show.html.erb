@@ -1,0 +1,20 @@
+<style> table{width: 600px} h4{border: 2px solid black; width: 400px}</style>
+<h3><a href="/ideas">Bright Ideas</a> | <a href="/sessions" data-method='delete'>Logout</a></h3>
+
+<a href="/users/<%= @idea.user_id%>"><p><%=@idea.user.name %></a> says:</p><h4> <%= @idea.idea%></h4>
+
+<p>People who liked this post</ps>
+<table border='2'>
+	<tr>
+		<th>Alias</th>
+		<th>Name</th>
+
+	</tr>
+	<% @likes.each do |like|%>
+	<tr>
+		<td><a href="/users/<%= like.user.id%>"><%= like.user.alias%></a></td>
+		<td> <%= like.user.name %> </td>
+	</tr>
+	<% end %>
+
+</table>

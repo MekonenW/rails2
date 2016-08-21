@@ -1,0 +1,32 @@
+<style>.error{color: red}h3{color:green;}input{width: 100px; color:blue;}p{border:2px solid black; width: 400px; padding: 10px}</style>
+<h2><a href="/sessions" data-method='delete'>Logout</a></h2>
+
+<h3>Hi <%= @user.name%>!</h3>
+<h3 class='error'><%= flash[:errors]%></h3>
+
+
+<form action='/ideas' method='post'>
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+	<textarea name='idea[idea]' cols='73' rows='3' placeholder='Post something here'></textarea>
+	<input type='submit' value='Idea!'>
+
+</form>
+<% @ideas.each do |idea|%>
+	<h4><a href="users/<%= idea.user.id%>"><%=idea.user.name %></a>Says: 
+	<p><%= idea.idea%></p></h4>
+	<form action='/ideas/<%= idea.id %>' method='post'>
+		<% if idea.user.id == @user.id %>
+			<input type='hidden' name="authenticity_token" value="<%= form_authenticity_token %>">
+			<input type='hidden' name='_method' value='delete'>
+			<button type='submit'>Delete</button>
+
+		<% end %>
+	</form>
+	<a href="users/<%= @user.id%>">Like</a>
+
+	<h4> <a href="ideas/<%= idea.id %>"><%= idea.likes.count%>people:  </a>like this</h4>
+
+<% end %>
+
+
